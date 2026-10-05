@@ -143,4 +143,73 @@ class NotaTest {
         assertThrows(IllegalArgumentException.class, subirNota);
         assertEquals(6, nota.getValor());
     }
+
+    @Test
+    void bajarPuntosDecrementaLaNota() {
+
+        // Arrange
+        Nota nota = new Nota(6, "matematicas");
+
+        // Act
+        nota.bajar(1.5);
+
+        // Assert
+        assertEquals(4.5, nota.getValor());
+    }
+
+    @Test
+    void bajarPuntosHastaCeroEsValido() {
+
+        // Arrange
+        Nota nota = new Nota(2, "matematicas");
+
+        // Act
+        nota.bajar(2);
+
+        // Assert
+        assertEquals(0, nota.getValor());
+    }
+
+    @Test
+    void bajarPuntosPorDebajoDeCeroLanzaExcepcion() {
+
+        // Arrange
+        Nota nota = new Nota(1, "matematicas");
+
+        // Act
+        Executable bajarNota = () -> nota.bajar(2);
+
+        // Assert
+        assertThrows(IllegalArgumentException.class, bajarNota);
+        assertEquals(1, nota.getValor());
+    }
+
+    @Test
+    void bajarPuntosNegativosLanzaExcepcion() {
+
+        // Arrange
+        Nota nota = new Nota(6, "matematicas");
+
+        // Act
+        Executable bajarNota = () -> nota.bajar(-1);
+
+        // Assert
+        assertThrows(IllegalArgumentException.class, bajarNota);
+        assertEquals(6, nota.getValor());
+    }
+
+    
+    @Test
+    void relacionInversaSubirBajarNotaTest() {
+
+        // Arrange
+        Nota nota = new Nota(6, "matematicas");
+
+        //Act 
+        nota.subir(2);
+        nota.bajar(2);
+
+        //Assert
+        assertEquals(6, nota.getValor());
+    }
 }
