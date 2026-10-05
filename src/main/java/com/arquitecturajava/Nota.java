@@ -35,4 +35,11 @@ public class Nota {
             return false;
         }
     }
+
+    public void subir(double puntos) {
+        if (puntos < 0) {
+            throw new IllegalArgumentException("Los puntos a subir no pueden ser negativos: " + puntos);
+        }
+        setValor(valor + puntos);
+    }
 }

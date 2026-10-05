@@ -66,7 +66,7 @@ class NotaTest {
     void notaNegativaLanzaExcepcion() {
 
         // Arrange
-        double valorNegativo = -1;
+        double valorNegativo = -0.1;
         String asignatura = "matematicas";
 
         // Act
@@ -80,7 +80,7 @@ class NotaTest {
     void notaMayorQueDiezLanzaExcepcion() {
 
         // Arrange
-        double valorMayorQueDiez = 11;
+        double valorMayorQueDiez = 10.1;
         String asignatura = "matematicas";
 
         // Act
@@ -88,5 +88,59 @@ class NotaTest {
 
         // Assert
         assertThrows(IllegalArgumentException.class, crearNota);
+    }
+
+    @Test
+    void subirPuntosIncrementaLaNota() {
+
+        // Arrange
+        Nota nota = new Nota(6, "matematicas");
+
+        // Act
+        nota.subir(1.5);
+
+        // Assert
+        assertEquals(7.5, nota.getValor());
+    }
+
+    @Test
+    void subirPuntosHastaDiezEsValido() {
+
+        // Arrange
+        Nota nota = new Nota(8, "matematicas");
+
+        // Act
+        nota.subir(2);
+
+        // Assert
+        assertEquals(10, nota.getValor());
+    }
+
+    @Test
+    void subirPuntosPorEncimaDeDiezLanzaExcepcion() {
+
+        // Arrange
+        Nota nota = new Nota(9, "matematicas");
+
+        // Act
+        Executable subirNota = () -> nota.subir(2);
+
+        // Assert
+        assertThrows(IllegalArgumentException.class, subirNota);
+        assertEquals(9, nota.getValor());
+    }
+
+    @Test
+    void subirPuntosNegativosLanzaExcepcion() {
+
+        // Arrange
+        Nota nota = new Nota(6, "matematicas");
+
+        // Act
+        Executable subirNota = () -> nota.subir(-1);
+
+        // Assert
+        assertThrows(IllegalArgumentException.class, subirNota);
+        assertEquals(6, nota.getValor());
     }
 }
