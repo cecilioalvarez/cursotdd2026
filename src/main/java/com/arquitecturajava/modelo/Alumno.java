@@ -1,4 +1,4 @@
-package com.arquitecturajava;
+package com.arquitecturajava.modelo;
 
 import java.util.ArrayList;
 import java.util.Collections;

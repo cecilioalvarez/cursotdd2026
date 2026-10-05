@@ -1,4 +1,4 @@
-package com.arquitecturajava;
+package com.arquitecturajava.modelo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
