@@ -26,7 +26,7 @@ public class Nota {
         this.asignatura = asignatura;
     }
     public boolean estaAprobada() {
-        if(valor>5) {
+        if(valor>=5) {
             return true;
         }else {
             return false;
