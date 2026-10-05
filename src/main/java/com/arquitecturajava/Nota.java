@@ -6,7 +6,7 @@ public class Nota {
     private String asignatura;
 
     public Nota(double valor, String asignatura) {
-        this.valor = valor;
+        setValor(valor);
         this.asignatura = asignatura;
     }
 
@@ -15,6 +15,9 @@ public class Nota {
     }
 
     public void setValor(double valor) {
+        if (valor < 0 || valor > 10) {
+            throw new IllegalArgumentException("La nota debe estar entre 0 y 10: " + valor);
+        }
         this.valor = valor;
     }
 
