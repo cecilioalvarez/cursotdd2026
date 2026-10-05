@@ -1,5 +1,7 @@
 package com.arquitecturajava;
 
+import java.util.Objects;
+
 public class Nota {
 
     private double valor;
@@ -48,5 +50,39 @@ public class Nota {
             throw new IllegalArgumentException("Los puntos a bajar no pueden ser negativos: " + puntos);
         }
         setValor(valor - puntos);
+    }
+
+    public String getCalificacion() {
+        if (valor < 3) {
+            return "muy deficiente";
+        } else if (valor < 5) {
+            return "insuficiente";
+        } else if (valor < 6) {
+            return "aprobado";
+        } else if (valor < 7) {
+            return "bien";
+        } else if (valor < 9) {
+            return "notable";
+        } else {
+            return "sobresaliente";
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Nota otra = (Nota) obj;
+        return Double.compare(valor, otra.valor) == 0
+                && Objects.equals(asignatura, otra.asignatura);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(valor, asignatura);
     }
 }
