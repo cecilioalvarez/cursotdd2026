@@ -6,8 +6,29 @@ import org.junit.jupiter.api.Test;
 
 class CalculadoraTest {
 
+//Arrange Act , Assert 
+
     @Test
     void sumarDosNumeros() {
-        assertEquals(5, Calculadora.sumar(2, 3));
+       
+        //Arrange 
+        Calculadora c1= new Calculadora();
+        //Act 
+        double suma=c1.sumar(2, 2);
+        //Assert
+        assertEquals(4, suma);
+
+    }
+
+    @Test
+    void restarDosNumeros() {
+       
+          //Arrange 
+        Calculadora c1= new Calculadora();
+        //Act 
+        double resta=c1.restar(2, 2);
+        //Assert
+        assertEquals(0, resta);
     }
 }
+
