@@ -2,85 +2,29 @@ package com.arquitecturajava;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class NotaCalificacionesTest {
 
-    @Test
-    void calificacionMuyDeficiente() {
+    @ParameterizedTest(name = "{0} -> {1}")
+    @CsvSource({
+        "2.9, muy deficiente",
+        "3,   insuficiente",
+        "5,   aprobado",
+        "6,   bien",
+        "7,   notable",
+        "9,   sobresaliente"
+    })
+    void calificacionSegunValor(double valor, String calificacionEsperada) {
 
         // Arrange
-        Nota nota = new Nota(2.9, "matematicas");
+        Nota nota = new Nota(valor, "matematicas");
 
         // Act
         String calificacion = nota.getCalificacion();
 
         // Assert
-        assertEquals("muy deficiente", calificacion);
-    }
-
-    @Test
-    void calificacionInsuficiente() {
-
-        // Arrange
-        Nota nota = new Nota(3, "matematicas");
-
-        // Act
-        String calificacion = nota.getCalificacion();
-
-        // Assert
-        assertEquals("insuficiente", calificacion);
-    }
-
-    @Test
-    void calificacionAprobado() {
-
-        // Arrange
-        Nota nota = new Nota(5, "matematicas");
-
-        // Act
-        String calificacion = nota.getCalificacion();
-
-        // Assert
-        assertEquals("aprobado", calificacion);
-    }
-
-    @Test
-    void calificacionBien() {
-
-        // Arrange
-        Nota nota = new Nota(6, "matematicas");
-
-        // Act
-        String calificacion = nota.getCalificacion();
-
-        // Assert
-        assertEquals("bien", calificacion);
-    }
-
-    @Test
-    void calificacionNotable() {
-
-        // Arrange
-        Nota nota = new Nota(7, "matematicas");
-
-        // Act
-        String calificacion = nota.getCalificacion();
-
-        // Assert
-        assertEquals("notable", calificacion);
-    }
-
-    @Test
-    void calificacionSobresaliente() {
-
-        // Arrange
-        Nota nota = new Nota(9, "matematicas");
-
-        // Act
-        String calificacion = nota.getCalificacion();
-
-        // Assert
-        assertEquals("sobresaliente", calificacion);
+        assertEquals(calificacionEsperada, calificacion);
     }
 }

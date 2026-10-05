@@ -32,4 +32,11 @@ public class Alumno {
     public void removeNota(Nota nota) {
         notas.remove(nota);
     }
+
+    public double getNotaMedia() {
+        return notas.stream()
+                .mapToDouble(Nota::getValor)
+                .average()
+                .orElse(0);
+    }
 }

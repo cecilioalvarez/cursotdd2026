@@ -212,4 +212,74 @@ class NotaTest {
         //Assert
         assertEquals(6, nota.getValor());
     }
+
+    @Test
+    void notasConMismoValorYAsignaturaSonIguales() {
+
+        // Arrange
+        Nota nota1 = new Nota(7, "matematicas");
+        Nota nota2 = new Nota(7, "matematicas");
+
+        // Act
+        boolean iguales = nota1.equals(nota2);
+
+        // Assert
+        assertTrue(iguales);
+    }
+
+    @Test
+    void notasConDistintoValorNoSonIguales() {
+
+        // Arrange
+        Nota nota1 = new Nota(7, "matematicas");
+        Nota nota2 = new Nota(8, "matematicas");
+
+        // Act
+        boolean iguales = nota1.equals(nota2);
+
+        // Assert
+        assertFalse(iguales);
+    }
+
+    @Test
+    void notasConDistintaAsignaturaNoSonIguales() {
+
+        // Arrange
+        Nota nota1 = new Nota(7, "matematicas");
+        Nota nota2 = new Nota(7, "lengua");
+
+        // Act
+        boolean iguales = nota1.equals(nota2);
+
+        // Assert
+        assertFalse(iguales);
+    }
+
+    @Test
+    void notaNoEsIgualANull() {
+
+        // Arrange
+        Nota nota = new Nota(7, "matematicas");
+
+        // Act
+        boolean iguales = nota.equals(null);
+
+        // Assert
+        assertFalse(iguales);
+    }
+
+    @Test
+    void notasIgualesTienenElMismoHashCode() {
+
+        // Arrange
+        Nota nota1 = new Nota(7, "matematicas");
+        Nota nota2 = new Nota(7, "matematicas");
+
+        // Act
+        int hash1 = nota1.hashCode();
+        int hash2 = nota2.hashCode();
+
+        // Assert
+        assertEquals(hash1, hash2);
+    }
 }
