@@ -9,11 +9,11 @@ import java.util.Map;
 import com.arquitecturajava.modelo.Alumno;
 import com.arquitecturajava.modelo.Nota;
 
-public class Transformador {
+public abstract class Transformador {
 
     private LectorFichero lector;
 
-    public Transformador(LectorFichero lector) {
+    protected Transformador(LectorFichero lector) {
         this.lector = lector;
     }
 
@@ -46,11 +46,7 @@ public class Transformador {
         return campos;
     }
 
-    Nota crearNota(String[] campos) {
-        String asignatura = campos[1];
-        double valor = Double.parseDouble(campos[2]);
-        return new Nota(valor, asignatura);
-    }
+    abstract Nota crearNota(String[] campos);
 
     Alumno buscarOCrearAlumno(String nombre, Map<String, Alumno> alumnos) {
         Alumno alumno = alumnos.get(nombre);
