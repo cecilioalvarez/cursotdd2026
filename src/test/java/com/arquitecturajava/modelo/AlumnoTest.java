@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 class AlumnoTest {
@@ -84,6 +86,22 @@ class AlumnoTest {
     }
 
     @Test
+    void notaMediaConDecimalesPeriodicos() {
+
+        // Arrange
+        Alumno alumno = crearAlumnoConNotas(
+                new Nota(7, "matematicas"),
+                new Nota(8, "lengua"),
+                new Nota(8, "historia"));
+
+        // Act
+        double media = alumno.getNotaMedia();
+
+        // Assert
+        assertEquals(7.67, media, 0.01);
+    }
+
+    @Test
     void notaMediaSinNotasEsCero() {
 
         // Arrange
@@ -94,6 +112,92 @@ class AlumnoTest {
 
         // Assert
         assertEquals(0, media);
+    }
+
+    @Test
+    void mejorNotaDeVariasNotas() {
+
+        // Arrange
+        Alumno alumno = crearAlumnoConNotas(
+                new Nota(7, "matematicas"),
+                new Nota(9.5, "lengua"),
+                new Nota(3, "historia"));
+
+        // Act
+        Optional<Nota> mejorNota = alumno.getMejorNota();
+
+        // Assert con cross checking
+        assertEquals(Optional.of(new Nota(9.5, "lengua")), mejorNota);
+        assertEquals("lengua", mejorNota.get().getAsignatura());
+    }
+
+    @Test
+    void mejorNotaSinNotasEstaVacia() {
+
+        // Arrange
+        Alumno alumno = new Alumno("Ana");
+
+        // Act
+        Optional<Nota> mejorNota = alumno.getMejorNota();
+
+        // Assert
+        assertTrue(mejorNota.isEmpty());
+    }
+
+    @Test
+    void alumnosConMismoNombreSonIguales() {
+
+        // Arrange
+        Alumno alumno1 = new Alumno("Ana");
+        Alumno alumno2 = new Alumno("Ana");
+
+        // Act
+        boolean iguales = alumno1.equals(alumno2);
+
+        // Assert
+        assertTrue(iguales);
+    }
+
+    @Test
+    void alumnosConDistintoNombreNoSonIguales() {
+
+        // Arrange
+        Alumno alumno1 = new Alumno("Ana");
+        Alumno alumno2 = new Alumno("Pedro");
+
+        // Act
+        boolean iguales = alumno1.equals(alumno2);
+
+        // Assert
+        assertFalse(iguales);
+    }
+
+    @Test
+    void alumnoNoEsIgualANull() {
+
+        // Arrange
+        Alumno alumno = new Alumno("Ana");
+
+        // Act
+        boolean iguales = alumno.equals(null);
+
+        // Assert
+        assertFalse(iguales);
+    }
+
+    @Test
+    void alumnosIgualesTienenElMismoHashCode() {
+
+        // Arrange
+        Alumno alumno1 = new Alumno("Ana");
+        Alumno alumno2 = new Alumno("Ana");
+
+        // Act
+        int hash1 = alumno1.hashCode();
+        int hash2 = alumno2.hashCode();
+
+        // Assert
+        assertEquals(hash1, hash2);
     }
 
     private Alumno crearAlumnoConNotas(Nota... notas) {

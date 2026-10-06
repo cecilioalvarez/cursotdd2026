@@ -1,8 +1,10 @@
 package com.arquitecturajava.modelo;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Alumno {
 
@@ -39,4 +41,28 @@ public class Alumno {
                 .average()
                 .orElse(0);
     }
+
+    public Optional<Nota> getMejorNota() {
+        return notas.stream()
+                .max(Comparator.comparingDouble(Nota::getValor));
+        //return Optional.of(new Nota (5,"Filosofia"));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Alumno otro = (Alumno) obj;
+        return Objects.equals(nombre, otro.nombre);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre);
+    }
+
 }
