@@ -19,10 +19,9 @@ public abstract class Transformador {
 
     public List<Alumno> transformar(String ruta) throws IOException {
         Map<String, Alumno> alumnos = new LinkedHashMap<>();
+        Alumno alumnoActual = null;
         for (String linea : lector.leerLineas(ruta)) {
-            if (esLineaDeNota(linea)) {
-                procesarLinea(linea, alumnos);
-            }
+            alumnoActual = procesarLinea(linea, alumnos, alumnoActual);
         }
         return new ArrayList<>(alumnos.values());
     }
@@ -31,11 +30,17 @@ public abstract class Transformador {
         return separarCampos(linea).length == 3;
     }
 
-    void procesarLinea(String linea, Map<String, Alumno> alumnos) {
+    // devuelve el alumno actual, para los formatos en los que una nota
+    // depende de un alumno leído en una línea anterior
+    Alumno procesarLinea(String linea, Map<String, Alumno> alumnos, Alumno alumnoActual) {
+        if (!esLineaDeNota(linea)) {
+            return alumnoActual;
+        }
         String[] campos = separarCampos(linea);
         String nombre = campos[0];
         Alumno alumno = buscarOCrearAlumno(nombre, alumnos);
         alumno.addNota(crearNota(campos));
+        return alumno;
     }
 
     String[] separarCampos(String linea) {
